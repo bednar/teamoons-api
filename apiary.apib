@@ -1,10 +1,152 @@
-HOST: https://www.teamoons.com/api
+HOST: https://teamoons.com/api
 
---- Teamoons.com ---
+--- TeamBalloons API documentation ---
+---
+Full API documentation of *TeamBalloons: Collaboration with Pleasure!* application.
+
+### Request Types
+    - GET    : Read a resource or list of resources
+    - POST   : Create or Update resource
+    - DELETE : Delete a resource
+    
+### Response Codes
+    - 200 : Resource action (GET, POST, ...) successful 
+    - 500 : ServerError during resource action
+    - 401 : Unauhtorized action on resource
+    
+### Resource Properties Definitions
+    - [string max:10, required] - data type is String, max length is 10 and is required 
+---
 
 --
-Security API
-API for authentication and security interaction.
+Response Showcase
 --
+OK response
 
+    //JAX-RS example
+    ClientBuilder.newClient()
+        .target("/test/200")
+        .request("application/json")
+        .buildGet()
+        .submit()
+        .get();
+    
+GET /test/200/
+< 200
+< Content-Type: application/json; charset=utf-8
+{}
 
+ERROR response
+
+    // JAX-RS example
+    ClientBuilder.newClient()
+        .target("/test/500")
+        .request("application/json")
+        .buildGet()
+        .submit()
+        .get();
+        
+GET /test/500
+< 500
+< Content-Type: application/json; charset=utf-8
+{}
+
+UNAUTHORIZED response
+
+    // JAX-RS example
+    ClientBuilder.newClient()
+        .target("/test/401")
+        .request("application/json")
+        .buildGet()
+        .submit()
+        .get();
+      
+GET /test/401
+< 401
+< Content-Type: application/json; charset=utf-8
+{}
+
+--
+Authentication & Security Flow
+--
+Simple Web-Authentication via HTML Form. After success authentication 
+return `OK` response if authentication not finish success, 
+than return `UNAUTHORIZED` with reason message.
+
+    //JAX-RS example
+    ClientBuilder.newClient()
+        .target("/security/authenticateViaForm")
+        .request("application/json")
+        .buildPost(Entity.form(
+            new Form()
+                .param("username", "white.rabbit@example.com")
+                .param("password", "mysecret")))
+        .submit()
+        .get();
+        
+### Parameters
+- `username [string]` - User email
+- `password [string]` - User password
+POST /security/authenticateViaForm 
+< 200
+< Content-Type: application/json; charset=utf-8
+Authenticate Succes
++++++
+< 401
+< Content-Type: application/json; charset=utf-8
+Aunthenticate Failure
+
+If actual session is authenticated, than invalidate session 
+and unauthenticated it. Always return `OK`.
+
+    //JAX-RS example
+    ClientBuilder.newClient()
+        .target("/security/unAuthenticate")
+        .request("application/json")
+        .buildGet()
+        .submit()
+        .get();
+        
+GET /security/unAuthenticate
+< 200
+< Content-Type: application/json; charset=utf-8
+Success.
+
+Return `OK` response if actual server session is authenticated 
+and `UNAUTHORIZED` if not.
+
+    //JAX-RS example
+    ClientBuilder.newClient()
+        .target("/security/isAuthenticated")
+        .request("application/json")
+        .buildGet()
+        .submit()
+        .get();
+
+GET /security/isAuthenticated
+< 200
+< Content-Type: application/json; charset=utf-8
+Yes
++++++
+< 401
+< Content-Type: application/json; charset=utf-8
+No
+
+--
+PayingPlanType Resources
+### Properties
+- `code [string max:10, required]` - Plan code 
+--
+Paying Plans available for order by users.
+GET /payingplantype
+< 200
+< Content-Type: application/json; charset=utf-8
+{ 
+    "items": [
+        { 
+            "id"    : 1,
+            "code"  : "free"
+        }
+    ]
+}
+)
