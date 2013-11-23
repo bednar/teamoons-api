@@ -3,6 +3,40 @@ HOST: https://www.teamoons.com/api
 --- Teamoons.com ---
 
 --
+Testing
+Demonstration response of API.
+--
+
+Success Response
+GET test/200
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{"status":200}
+
+Unauthorized
+GET test/401
+> Accept: application/json
+< 401
+< Content-Type: application/json
+{"status":401}
+
+Forbidden
+GET test/403
+> Accept: application/json
+< 403
+< Content-Type: application/json
+{"status":403}
+
+Server Error
+GET test/500
+> Accept: application/json
+< 500
+< Content-Type: application/json
+{"status":500}
+
+
+--
 Authentication
 API for authentication subject. Supported authentication method: HTML Form.
 --
@@ -12,6 +46,7 @@ Simple Web-Authentication via HTML Form. After success authentication return HTT
 - `username [string]` - Username of Subject (Form param)
 - `password [string]` - Password of Subject (Form param)
 POST security/authenticateViaForm
+> Accept: application/x-www-form-urlencoded
 < 200
 < Content-Type: application/json
 {}
@@ -22,12 +57,14 @@ POST security/authenticateViaForm
 
 If actual session is authenticated, than invalidate session and unauthenticated it. Always return HTTP 200 OK.
 GET security/unAuthenticate
+> Accept: application/json
 < 200
 < Content-Type: application/json
 {}
 
 Return HTTP 200 OK response if actual session is authenticated or HTTP 401 UNAUTHORIZED if not.
 GET security/isAuthenticated
+> Accept: application/json
 < 200
 < Content-Type: application/json
 {}
@@ -35,35 +72,5 @@ GET security/isAuthenticated
 < 401
 < Content-Type: application/json
 {}
-
-
---
-Testing
-Demonstration response of API.
---
-
-Success Response
-GET test/200
-< 200
-< Content-Type: application/json
-{"status":200}
-
-Unauthorized
-GET test/401
-< 401
-< Content-Type: application/json
-{"status":401}
-
-Forbidden
-GET test/403
-< 403
-< Content-Type: application/json
-{"status":403}
-
-Server Error
-GET test/500
-< 500
-< Content-Type: application/json
-{"status":500}
 
 
