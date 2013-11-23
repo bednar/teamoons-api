@@ -3,6 +3,36 @@ HOST: https://www.teamoons.com/api
 --- Teamoons.com ---
 
 --
+Testing "Resource"
+Demonstration response of remote API.
+--
+
+Success Response
+GET test/200
+< 200
+< Content-Type: application/json
+{"status" : 200}
+
+Unauthorized
+GET test/401
+< 401
+< Content-Type: application/json
+{"status" : 401}
+
+Forbidden
+GET test/403
+< 403
+< Content-Type: application/json
+{"status" : 403}
+
+Server Error
+GET test/500
+< 500
+< Content-Type: application/json
+{"status" : 500}
+
+
+--
 Security API
 API for authentication and security interaction.
 --
