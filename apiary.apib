@@ -3,38 +3,67 @@ HOST: https://www.teamoons.com/api
 --- Teamoons.com ---
 
 --
-Testing "Resource"
-Demonstration response of remote API.
+Authentication
+API for authentication subject. Supported authentication method: HTML Form.
+--
+
+Simple Web-Authentication via HTML Form. After success authentication return HTTP 200 OK response if authentication not finish success, than return HTTP 401 UNAUTHORIZED.
+### Parameters
+- `username [string]` - Username of Subject (Form param)
+- `password [string]` - Password of Subject (Form param)
+POST security/authenticateViaForm
+< 200
+< Content-Type: application/json
+{}
++++++
+< 401
+< Content-Type: application/json
+{}
+
+If actual session is authenticated, than invalidate session and unauthenticated it. Always return HTTP 200 OK.
+GET security/unAuthenticate
+< 200
+< Content-Type: application/json
+{}
+
+Return HTTP 200 OK response if actual session is authenticated or HTTP 401 UNAUTHORIZED if not.
+GET security/isAuthenticated
+< 200
+< Content-Type: application/json
+{}
++++++
+< 401
+< Content-Type: application/json
+{}
+
+
+--
+Testing
+Demonstration response of API.
 --
 
 Success Response
 GET test/200
 < 200
 < Content-Type: application/json
-{"status" : 200}
+{"status":200}
 
 Unauthorized
 GET test/401
 < 401
 < Content-Type: application/json
-{"status" : 401}
+{"status":401}
 
 Forbidden
 GET test/403
 < 403
 < Content-Type: application/json
-{"status" : 403}
+{"status":403}
 
 Server Error
 GET test/500
 < 500
 < Content-Type: application/json
-{"status" : 500}
-
-
---
-Security API
-API for authentication and security interaction.
---
+{"status":500}
 
 
