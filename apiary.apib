@@ -3,6 +3,16 @@ HOST: https://www.teamoons.com/api
 --- Teamoons.com ---
 
 --
+Resource: User
+Represents person on Teamoons.com.
+### Properties
+- `email[string length:200, required]` - _Email_
+- `name[string transient]` - _Fullname_
+- `firstname[string length:100]` - _Firstname_
+- `surname[string length:100]` - _Surname_
+--
+
+--
 Testing
 Demonstration response of API.
 --
@@ -72,5 +82,22 @@ GET security/isAuthenticated
 < 401
 < Content-Type: application/json
 {}
+
+
+--
+User
+Manage users of Teamoons.com.
+--
+
+Actual logged user. If user isn't authenticated than return HTTP 403 FORBIDDEN.
+GET user/me
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{"email":"thomas.buner@example.com","name":"Thomas Buner","firstname":"Thomas","surname":"Buner"}
++++++
+< 403
+< Content-Type: application/json
+
 
 
