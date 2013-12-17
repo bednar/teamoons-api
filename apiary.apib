@@ -47,6 +47,19 @@ GET test/500
 
 
 --
+Localization
+Localized texts used in application.
+--
+
+All localized texts
+GET localization/
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{"app.title":"This is awesome App","app.description":"Description of App"}
+
+
+--
 Authentication
 API for authentication subject. Supported authentication method: HTML Form.
 --
