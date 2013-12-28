@@ -51,12 +51,14 @@ Localization
 Localized texts used in application.
 --
 
-All localized texts
+All localized texts. Support JSONP assign to variable by `callbackAssignTo` parameter.
+### Parameters
+- `callbackAssignTo [string]` - JavaScript property for assign localization texts.
 GET localization/
 > Accept: application/json
 < 200
 < Content-Type: application/json
-{"app.title":"This is awesome App","app.description":"Description of App"}
+window.localization = {"app.title":"This is awesome App","app.description":"Description of App"}
 
 
 --
